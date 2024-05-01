@@ -2,26 +2,12 @@
 
 import { revalidateTag } from "next/cache";
 
-export const loginUser = async (userData) => {
-  const res = await fetch(
-    "https://baraqa-properties-server.vercel.app/api/login",
-    {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(userData),
-    }
-  );
-  return res.json();
-};
-
 export const getDemos = async () => {
   const res = await fetch(
     "https://baraqa-properties-server.vercel.app/api/demos",
     {
       next: {
-        tags: ["demos"],
+        tags: ["demos"], // set this tag 
       },
     }
   );
@@ -39,7 +25,20 @@ export const postDemo = async (demoData) => {
       body: JSON.stringify(demoData),
     }
   );
-  revalidateTag("demos");
+  revalidateTag("demos"); //revalidate tag
+  return res.json();
+};
+export const loginUser = async (userData) => {
+  const res = await fetch(
+    "https://baraqa-properties-server.vercel.app/api/login",
+    {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userData),
+    }
+  );
   return res.json();
 };
 
